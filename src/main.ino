@@ -7,7 +7,7 @@
 #include <WiFiUdp.h>
 #include <TimeLib.h>
 
-#define DHTPIN 15     // Pin where the DHT22 sensor is connected
+#define DHTPIN 19     // Pin where the DHT22 sensor is connected
 #define DHTTYPE DHT22   // DHT22 sensor type
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -15,11 +15,11 @@ DHT dht(DHTPIN, DHTTYPE);
 LiquidCrystal_I2C lcd(0x27, 20, 4);  // I2C LCD address: 0x27, 20 characters, 4 lines
 
 int LDR_PIN = 35;  // Pin where the LDR sensor is connected
-int POT_PIN = 34;  // Pin where the potentiometer is connected
-int LED_PIN = 33;   // Pin where the LED is connected
-int RELAY_PIN = 18; // Pin where the relay is connected
-int SERVO_PIN = 19; // Pin where the first servo is connected
-int SERVO_PIN2 = 5; // Pin where the second servo is connected
+int POT_PIN = 36;  // Pin where the potentiometer is connected
+int LED_PIN = 37;   // Pin where the LED is connected
+int RELAY_PIN = 47; // Pin where the relay is connected
+int SERVO_PIN = 13; // Pin where the first servo is connected
+int SERVO_PIN2 = 14; // Pin where the second servo is connected
 
 float temperature;
 float humidity;
@@ -44,6 +44,7 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org", 7 * 3600);  // GMT+7 for Indonesia
 bool hasDispensedToday = false; // Flag to indicate if the pesticide has been dispensed today
 
 void setup() {
+  Wire.begin(10, 8);
   Serial.begin(9600);
   dht.begin();
   lcd.init();
